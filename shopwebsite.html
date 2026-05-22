@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aakaptp | Curated Luxury Marketplace</title>
+    <style>
+        /* Modern Design System Tokens */
+        :root {
+            --bg-global: #FBF9F6;
+            --surface: #FFFFFF;
+            --text-main: #111111;
+            --text-muted: #706E6B;
+            --accent-gold: #C5A880;
+            --border-light: #EAE5DF;
+            --radius-premium: 4px; /* Crisp, luxurious editorial edges */
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-global);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Top Notification Ticker */
+        .announcement-bar {
+            background-color: var(--text-main);
+            color: var(--bg-global);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 0.6rem 1rem;
+        }
+
+        /* Main Header Structure */
+        header {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-light);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .cart-icon {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--text-main);
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+        }
+
+        .cart-icon:hover {
+            background-color: var(--text-main);
+            color: var(--surface);
+        }
+
+        /* Hero Banner Section */
+        .hero-banner {
+            height: 480px;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--surface);
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-banner h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            max-width: 500px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Sticky Filter Navigation Menu */
+        .filter-shelf {
+            background-color: var(--bg-global);
+            padding: 2rem 2rem 1rem 2rem;
+            position: sticky;
+            top: 73px;
+            z-index: 90;
+        }
+
+        .filter-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--text-main);
+            border-bottom-color: var(--text-main);
+        }
+
+        /* Editorial Product Grid Catalog */
+        .catalog-container {
+            max-width: 1400px;
+            margin: 1.5rem auto 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .meta-stats {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 3rem 2rem;
+        }
+
+        /* High-End Product Canvas */
+        .luxury-card {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .frame-3-4 {
+            position: relative;
+            width: 100%;
+            padding-top: 133.33%; /* Proportional 3:4 High Fashion aspect ratio */
+            overflow: hidden;
+            background-color: #EFEFEF;
+            border-radius: var(--radius-premium);
+        }
+
+        .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .luxury-card:hover .card-image {
+            transform: scale(1.04);
+        }
+
+        .editorial-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--surface);
+            color: var(--text-main);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        /* Sophisticated Product Typography Details */
+        .product-details {
+            padding-top: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex-grow: 1;
+        }
+
+        .tag-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold);
+        }
+
+        .title-display {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-main);
+            line-height: 1.4;
+            letter-spacing: 0.2px;
+            text-decoration: none;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .price-display {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 0.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Clean Luxury Action Buttons */
+        .action-submit-btn {
+            background-color: var(--text-main);
+            color: var(--surface);
+            border: 1px solid var(--text-main);
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border-radius: var(--radius-premium);
+            margin-top: auto;
+        }
+
+        .action-submit-btn:hover {
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        /* Fluid Slide-In Toast Module */
+        #toast-shelf {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast-card {
+            background: var(--text-main);
+            color: var(--surface);
+            padding: 1.2rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-radius: var(--radius-premium);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .toast-card.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Minimal Luxury Footer */
+        footer {
+            background-color: var(--text-main);
+            color: #8C8A87;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+
+        footer .footer-logo {
+            color: var(--surface);
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        /* Hide Horizontal Browsing Trackers on Clean Touch Displays */
+        .filter-container::-webkit-scrollbar { display: none; }
+        .filter-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 { font-size: 2.2rem; }
+            .nav-container { padding: 1rem; }
+            .filter-shelf { top: 61px; padding: 1.2rem 1rem 0.5rem 1rem; }
+            .catalog-container { padding: 0 1rem; }
+            .editorial-grid { gap: 2.5rem 1.2rem; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .title-display { font-size: 0.95rem; }
+            #toast-shelf { left: 20px; right: 20px; bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast-shelf"></div>
+
+    <div class="announcement-bar">Complimentary Pan-India Shipping On Premium Orders</div>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">aakaptp</a>
+            <a href="#" class="cart-icon" id="cart-counter-display">Bag (0)</a>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <h1>Refined Living</h1>
+        <p>A pristine assortment of professional beauty formulations and gourmet provisions.</p>
+    </section>
+
+    <section class="filter-shelf">
+        <div class="filter-container" id="filter-anchor-shelf">
+            <button class="filter-btn active" onclick="executeShelfFilter('all')">All Offerings</button>
+            <button class="filter-btn" onclick="executeShelfFilter('makeup')">Makeup & Beauty</button>
+            <button class="filter-btn" onclick="executeShelfFilter('food')">Gourmet Food</button>
+            <button class="filter-btn" onclick="executeShelfFilter('electronics')">Electronics</button>
+            <button class="filter-btn" onclick="executeShelfFilter('fashion')">Apparel & Fashion</button>
+            <button class="filter-btn" onclick="executeShelfFilter('home')">Home & Living</button>
+        </div>
+    </section>
+
+    <main class="catalog-container">
+        <div class="meta-stats" id="inventory-counter-string">Loading Curated Database...</div>
+        <div class="editorial-grid" id="showroom-grid"></div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">aakaptp</div>
+        <p>&copy; 2026 aakaptp Studio Private Ltd. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Exact 54 Item Database Array Matrix Matrix
+        const coreMasterDatabase = [
+            // --- MAKEUP & BEAUTY (11 Items) ---
+            { id: 1, name: "Matte Velvet Liquid Lipstick", price: 1250, category: "makeup", tag: "Trending", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" },
+            { id: 2, name: "Hydrating Full-Cover Foundation", price: 1999, category: "makeup", tag: "Exclusive", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" },
+            { id: 3, name: "Nourishing Silk Powder Blush", price: 1450, category: "makeup", tag: "", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" },
+            { id: 4, name: "Waterproof HD Volume Mascara", price: 790, category: "makeup", tag: "", img: "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?w=400" },
+            { id: 5, name: "12-Color Nude Eyeshadow Palette", price: 2450, category: "makeup", tag: "Limited", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" },
+            { id: 6, name: "Organic Rosewater Face Mist", price: 499, category: "makeup", tag: "Organic", img: "https://images.unsplash.com/photo-1608248597481-496100c80836?w=400" },
+            { id: 7, name: "Vitamin C Radiance Glow Serum", price: 1150, category: "makeup", tag: "Top Tier", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400" },
+            { id: 8, name: "Pro Matte Eyeliner Pen", price: 650, category: "makeup", tag: "", img: "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?w=400" },
+            { id: 9, name: "Hydrating Coconut Lip Oil", price: 550, category: "makeup", tag: "New Edition", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" },
+            { id: 10, name: "Hyaluronic Acid Tinted Primer", price: 1350, category: "makeup", tag: "", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400" },
+            { id: 11, name: "Oil-Control Setting Powder", price: 950, category: "makeup", tag: "", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400" },
+
+            // --- GOURMET FOOD (11 Items) ---
+            { id: 12, name: "Extra Virgin Cold-Pressed Olive Oil", price: 890, category: "food", tag: "Imported", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400" },
+            { id: 13, name: "Artisanal Sourdough Bread Loaf", price: 240, category: "food", tag: "Baked Daily", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
+            { id: 14, name: "Raw Wildflower Mountain Honey", price: 450, category: "food", tag: "Pure", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400" },
+            { id: 15, name: "Gourmet Roasted Nut Assortment", price: 680, category: "food", tag: "", img: "https://images.unsplash.com/photo-1548985187-408cc4917dd0?w=400" },
+            { id: 16, name: "Premium Single-Origin Arabica Beans", price: 750, category: "food", tag: "Select", img: "https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=400" },
+            { id: 17, name: "Organic Japanese Matcha Powder", price: 1250, category: "food", tag: "Ceremonial", img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400" },
+            { id: 18, name: "Dark Chocolate Himalayan Sea Salt", price: 380, category: "food", tag: "Artisan", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400" },
+            { id: 19, name: "Aged Italian Balsamic Vinegar", price: 1450, category: "food", tag: "", img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400" },
+            { id: 20, name: "Premium Handpicked Iranian Saffron", price: 3400, category: "food", tag: "Rare", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400" },
+            { id: 21, name: "Gluten-Free Almond Granola Pack", price: 490, category: "food", tag: "Healthy", img: "https://images.unsplash.com/photo-1548985187-408cc4917dd0?w=400" },
+            { id: 22, name: "Sparkling Apple-Ginger Herbal Brew", price: 180, category: "food", tag: "", img: "https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=400" },
+
+            // --- ELECTRONICS (11 Items) ---
+            { id: 23, name: "ANC Wireless Noise Cancelling Headphones", price: 8999, category: "electronics", tag: "Premium", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+            { id: 24, name: "Minimalist OLED Aluminum Smart Watch", price: 4999, category: "electronics", tag: "Curated", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
+            { id: 25, name: "Pro Mechanical RGB Keyboard", price: 3499, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400" },
+            { id: 26, name: "Ultra-Bass Waterproof Pocket Speaker", price: 1899, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400" },
+            { id: 27, name: "Ergonomic Optical Vertical Mouse", price: 1290, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400" },
+            { id: 28, name: "10000mAh Dual Fast Charging Power Bank", price: 1499, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400" },
+            { id: 29, name: "Full HD Streamer Webcam Ring Light", price: 2790, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400" },
+            { id: 30, name: "True Wireless Sweat-Proof Sports Earbuds", price: 2299, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+            { id: 31, name: "Dual-Device 15W Wireless Fast Charger", price: 1199, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
+            { id: 32, name: "4K High-Speed Braided HDMI Cable", price: 450, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400" },
+            { id: 33, name: "USB-C Multi-Port 6-in-1 Hub Adapter", price: 1799, category: "electronics", tag: "", img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400" },
+
+            // --- FASHION (11 Items) ---
+            { id: 34, name: "Premium Knit Heavyweight T-Shirt", price: 899, category: "fashion", tag: "Essential", img: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=400" },
+            { id: 35, name: "Ultra-Light Breathable Trainers", price: 3499, category: "fashion", tag: "Popular", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+            { id: 36, name: "Handcrafted Top-Grain Leather Wallet", price: 1799, category: "fashion", tag: "Classic", img: "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400" },
+            { id: 37, name: "Classic UV400 Acetate Sunglasses", price: 1490, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400" },
+            { id: 38, name: "Water-Resistant Daily Travel Backpack", price: 2499, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" },
+            { id: 39, name: "Relaxed Fit Denim Chore Jacket", price: 2999, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=400" },
+            { id: 40, name: "Breathing Mesh Lifestyle Sneakers", price: 4200, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+            { id: 41, name: "Genuine Full-Grain Leather Belt", price: 1250, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400" },
+            { id: 42, name: "Ankle-Length Stretch Comfort Chinos", price: 1999, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" },
+            { id: 43, name: "Unisex Minimal Stainless Steel Bracelet", price: 790, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400" },
+            { id: 44, name: "All-Weather Protective Windbreaker", price: 2199, category: "fashion", tag: "", img: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=400" },
+
+            // --- HOME & LIVING (10 Items) ---
+            { id: 45, name: "Eco Soy Candle Trio Set", price: 1199, category: "home", tag: "Studio", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
+            { id: 46, name: "Double-Walled Isolated Thermal Flask", price: 649, category: "home", tag: "", img: "https://images.unsplash.com/photo-1543518736-4024d3a01293?w=400" },
+            { id: 47, name: "Nordic Ceramic Flower Vase Set", price: 1350, category: "home", tag: "Aesthetic", img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400" },
+            { id: 48, name: "Waffle Weave Cotton Bath Towel", price: 899, category: "home", tag: "", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
+            { id: 49, name: "Premium French-Press Coffee Maker", price: 1599, category: "home", tag: "", img: "https://images.unsplash.com/photo-1543518736-4024d3a01293?w=400" },
+            { id: 50, name: "Minimal Brushed Desk Organizer System", price: 1050, category: "home", tag: "", img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400" },
+            { id: 51, name: "Dimmable Natural Wood Grain Lamp", price: 1850, category: "home", tag: "", img: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400" },
+            { id: 52, name: "Organic Natural Fiber Yoga Mat", price: 1450, category: "home", tag: "", img: "https://images.unsplash.com/photo-1543518736-4024d3a01293?w=400" },
+            { id: 53, name: "Scented Room Diffuser Combo", price: 1299, category: "home", tag: "", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" },
+            { id: 54, name: "Tempered Glass Kitchen Prep Board", price: 590, category: "home", tag: "", img: "https://images.unsplash.com/photo-1543518736-4024d3a01293?w=400" }
+        ];
+
+        let bagItemsCounter = 0;
+        const gridElement = document.getElementById('showroom-grid');
+        const countTextElement = document.getElementById('inventory-counter-string');
+        const navBagText = document.getElementById('cart-counter-display');
+        const categoryButtons = document.querySelectorAll('.filter-btn');
+
+        // Dynamic Showroom Canvas Renderer
+        function paintShowroomCanvas(targetCategory) {
+            gridElement.innerHTML = "";
+            
+            const filteredSet = targetCategory === 'all' 
+                ? coreMasterDatabase 
+                : coreMasterDatabase.filter(item => item.category === targetCategory);
+
+            countTextElement.innerText = `${filteredSet.length} items available to browse`;
+
+            filteredSet.forEach(item => {
+                const currencyString = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(item.price);
+                const completeBadge = item.tag ? `<div class="editorial-badge">${item.tag}</div>` : '';
+
+                const itemTemplate = `
+                    <div class="luxury-card">
+                        <div class="frame-3-4">
+                            ${completeBadge}
+                            <div class="card-image" style="background-image: url('${item.img}')"></div>
+                        </div>
+                        <div class="product-details">
+                            <span class="tag-category">${item.category}</span>
+                            <h3 class="title-display">${item.name}</h3>
+                            <div class="price-display">${currencyString}</div>
+                            <button class="action-submit-btn" onclick="commitBagIncrement('${item.name.replace(/'/g, "\\'")}')">Add to Bag</button>
+                        </div>
+                    </div>
+                `;
+                gridElement.innerHTML += itemTemplate;
+            });
+        }
+
+        // Shelf Navigation Filter Actions
+        function executeShelfFilter(categoryValue) {
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            paintShowroomCanvas(categoryValue);
+        }
+
+        // Cart Data Commits
+        function commitBagIncrement(title) {
+            bagItemsCounter++;
+            navBagText.innerText = `Bag (${bagItemsCounter})`;
+            deployEditorialToast(title);
+        }
+
+        // Toast Notification System
+        function deployEditorialToast(nameString) {
+            const shelf = document.getElementById('toast-shelf');
+            const alertCard = document.createElement('div');
+            alertCard.classList.add('toast-card');
+            alertCard.innerHTML = `Added to Selection: <strong>${nameString}</strong>`;
+
+            shelf.appendChild(alertCard);
+
+            setTimeout(() => alertCard.classList.add('active'), 40);
+            setTimeout(() => {
+                alertCard.classList.remove('active');
+                setTimeout(() => alertCard.remove(), 400);
+            }, 2600);
+        }
+
+        // Window Bootstrap
+        window.onload = () => {
+            paintShowroomCanvas('all');
+        };
+    </script>
+</body>
+</html>
